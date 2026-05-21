@@ -7,7 +7,7 @@ services:
     name: titanic-backend
     runtime: docker
     dockerContext: ./backend
-    dockerfilePath: Dockerfile
+  dockerfilePath: ./backend/Dockerfile
     plan: free
     envVars:
       - key: PORT
@@ -22,7 +22,7 @@ services:
     name: titanic-frontend
     runtime: docker
     dockerContext: ./frontend
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./frontend/Dockerfile
     plan: free
     envVars:
       - key: VITE_API_URL
