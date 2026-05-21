@@ -1,0 +1,35 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0a0a0f;
+  --surface:    #12121a;
+  --surface2:   #1a1a26;
+  --border:     #1e1e2e;
+  --red:        #e63946;
+  --cyan:       #4cc9f0;
+  --gold:       #f8c537;
+  --purple:     #7b2d8b;
+  --text:       #e8e8f0;
+  --muted:      #6b6b80;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+img { display: block; max-width: 100%; }
+button { cursor: pointer; font-family: inherit; }
