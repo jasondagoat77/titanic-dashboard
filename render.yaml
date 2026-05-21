@@ -1,0 +1,39 @@
+# render.yaml — Deploy both services to Render.com
+# Docs: https://titanic-backend.onrender.com
+
+services:
+  # ── Flask Backend ─────────────────────────────────────────
+  - type: web
+    name: titanic-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: PORT
+        value: "5000"
+      - key: PYTHON_ENV
+        value: production
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # ── React Frontend ────────────────────────────────────────
+  - type: web
+    name: titanic-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    plan: free
+    envVars:
+      - key: VITE_API_URL
+        # Replace with your actual Render backend URL after first deploy:
+        # e.g. https://titanic-backend.onrender.com
+        value: "https://titanic-backend.onrender.com"
+    autoDeploy: true
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://titanic-backend.onrender.com/api/$1
+      - type: rewrite
+        source: /static/*
+        destination: https://titanic-backend.onrender.com/static/$1
