@@ -2,10 +2,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system deps for matplotlib
+# Install system deps for matplotlib + wget for healthcheck
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libpng-dev \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .

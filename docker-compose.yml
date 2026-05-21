@@ -11,16 +11,17 @@ services:
     volumes:
       - ./backend/static/charts:/app/static/charts
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   frontend:
     build:
       context: ./frontend
       args:
-        - VITE_API_URL=  # empty = use nginx proxy
+        - VITE_API_URL=
     container_name: titanic-frontend
     ports:
       - "80:80"
