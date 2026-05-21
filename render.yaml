@@ -1,5 +1,5 @@
 # render.yaml — Deploy both services to Render.com
-# Docs: https://titanic-backend.onrender.com
+# Docs: https://render.com/docs/render-yaml-spec
 
 services:
   # ── Flask Backend ─────────────────────────────────────────
@@ -26,14 +26,5 @@ services:
     plan: free
     envVars:
       - key: VITE_API_URL
-        # Replace with your actual Render backend URL after first deploy:
-        # e.g. https://titanic-backend.onrender.com
         value: "https://titanic-backend.onrender.com"
     autoDeploy: true
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: https://titanic-backend.onrender.com/api/$1
-      - type: rewrite
-        source: /static/*
-        destination: https://titanic-backend.onrender.com/static/$1
