@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, CORS
 import pandas as pd
 import numpy as np
 import json, os
