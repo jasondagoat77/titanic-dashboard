@@ -2,12 +2,12 @@
 # Docs: https://render.com/docs/render-yaml-spec
 
 services:
-  # ── Flask Backend ─────────────────────────────────────────
+  # ── Flask Backend ─────────────────────────────
   - type: web
     name: titanic-backend
     runtime: docker
-    dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
+    dockerfilePath: Dockerfile
     plan: free
     envVars:
       - key: PORT
@@ -17,12 +17,12 @@ services:
     healthCheckPath: /health
     autoDeploy: true
 
-  # ── React Frontend ────────────────────────────────────────
+  # ── React Frontend ────────────────────────────
   - type: web
     name: titanic-frontend
     runtime: docker
-    dockerfilePath: ./frontend/Dockerfile
     dockerContext: ./frontend
+    dockerfilePath: Dockerfile
     plan: free
     envVars:
       - key: VITE_API_URL
