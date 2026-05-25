@@ -15,6 +15,11 @@ def get_df():
         df = pd.read_csv(os.path.join(BASE_DIR, 'titanic.csv'))
     return df
 
+def add_cors(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
 
 @app.route('/api/stats')
 def stats():
@@ -83,6 +88,9 @@ def serve_chart(filename):
         filename
     )
 
+@app.route('/api/<path:path>', methods=['OPTIONS'])
+def handle_options(path):
+    return '', 204
 
 @app.route('/health')
 def health():
