@@ -1,11 +1,9 @@
 from flask import Flask, jsonify, send_from_directory
-from flask_cors import CORS
 import pandas as pd
 import numpy as np
 import json, os
 
 app = Flask(__name__, static_folder='static')
-CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 

@@ -26,5 +26,5 @@ services:
     plan: free
     envVars:
       - key: VITE_API_URL
-        value: "https://titanic-backend.onrender.com"
+        value: "https://titanic-backend-6woe.onrender.com"
     autoDeploy: true
