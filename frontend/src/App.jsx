@@ -38,7 +38,7 @@ export default function App() {
             <span className={styles.tag}>KAGGLE DATASET</span>
             <h1 className={styles.title}>TITANIC<br /><em>SURVIVAL</em></h1>
             <p className={styles.subtitle}>
-              Produced and Developed by Jason Teo
+             Produced and Developed by Jason Teo
             </p>
           </div>
           <div className={styles.headerStats}>
