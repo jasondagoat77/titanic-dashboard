@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 # VITE_API_URL is empty → proxied by nginx; set to backend URL if deploying separately
-ARG VITE_API_URL=""
+ARG VITE_API_URL="https://titanic-backend-6woe.onrender.com"
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
