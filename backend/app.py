@@ -14,6 +14,7 @@ CORS_HEADERS = {
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 }
 
+
 def cors(data, status=200):
     resp = make_response(jsonify(data), status)
     for k, v in CORS_HEADERS.items():

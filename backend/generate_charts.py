@@ -9,10 +9,14 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# path until backend
 BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
+# backend/static/charts
 CHARTS_DIR = os.path.join(BASE_DIR, 'static', 'charts')
+# creates charts directory, exist_ok=True prevents error if it already exists
 os.makedirs(CHARTS_DIR, exist_ok=True)
 
+# Load Titanic dataset
 df = pd.read_csv(os.path.join(BASE_DIR, 'titanic.csv'))
 
 # ── Palette ──────────────────────────────────────────────────
@@ -24,18 +28,30 @@ ACCENT3  = '#f8c537'
 TEXT     = '#e8e8f0'
 GRID     = '#1e1e2e'
 
+# 2:1 aspect ratio, width to height
 def setup_fig(figsize=(10, 5)):
+    # create a figure and axis with dark background and styled grid
     fig, ax = plt.subplots(figsize=figsize, facecolor=DARK_BG)
+    # set axis background, tick colors, label colors, title color, and grid style
     ax.set_facecolor(CARD_BG)
+    # set tick colors and label size
     ax.tick_params(colors=TEXT, labelsize=10)
+    # set axis label colors and title color
     ax.xaxis.label.set_color(TEXT)
+    # y-axis label color
     ax.yaxis.label.set_color(TEXT)
+    # title color
     ax.title.set_color(TEXT)
+    # style grid lines
     for spine in ax.spines.values():
+        # set spine color to match grid
         spine.set_edgecolor(GRID)
+    # set grid with specified color, linewidth, and transparency
     ax.grid(color=GRID, linewidth=0.5, alpha=0.7)
+    # return the figure and axis for further plotting
     return fig, ax
 
+# Save figure with consistent styling and print confirmation
 def save(fig, name):
     path = os.path.join(CHARTS_DIR, name)
     fig.savefig(path, dpi=120, bbox_inches='tight', facecolor=DARK_BG)
@@ -125,10 +141,14 @@ stats = {
     'avg_age':          round(float(df['Age'].mean()), 1),
     'avg_fare':         round(float(df['Fare'].mean()), 2),
     'missing_age':      int(df['Age'].isna().sum()),
+    # Loop through the count the occurrences of each Pclass, then separate key and value, convert value to int for JSON serialization
     'class_breakdown':  {int(k): int(v) for k, v in df['Pclass'].value_counts().sort_index().items()},
+    # Loop through the count of the occurrences of each gender, then separate key and value, convert value to int for JSON serialization
     'sex_breakdown':    {k: int(v) for k, v in df['Sex'].value_counts().items()},
+    # Loop through the mean of the Survived column grouped by Pclass, then separate key and value, convert key to int and value to percentage for JSON serialization
     'class_survival_rates': {int(k): round(float(v*100),1)
                              for k, v in df.groupby('Pclass')['Survived'].mean().items()},
+    # Loop through the mean of the Survived column grouped by Sex, then separate key and value, convert value to percentage for JSON serialization
     'sex_survival_rates': {k: round(float(v*100),1)
                            for k, v in df.groupby('Sex')['Survived'].mean().items()},
 }
