@@ -1,5 +1,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* 
+:root is the very top of the HTML document. All elements are children of :root
+CSS variables defined here inherit downward through the browsers interface
+*/
 :root {
   --bg:         #0a0a0f;
   --surface:    #12121a;

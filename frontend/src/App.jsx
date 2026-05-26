@@ -15,17 +15,32 @@ export default function App() {
   const [tab, setTab]         = useState('overview')
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    Promise.all([
-      fetch(`${API}/api/stats`).then(r => r.json()),
-      fetch(`${API}/api/charts`).then(r => r.json()),
-      fetch(`${API}/api/data/sample`).then(r => r.json()),
-      fetch(`${API}/api/data/survived-by-class-sex`).then(r => r.json()),
-    ]).then(([s, c, d, m]) => {
-      setStats(s); setCharts(c); setSample(d); setMatrix(m)
-      setLoading(false)
-    }).catch(console.error)
-  }, [])
+useEffect(() => {
+  // 1. Define the async helper function
+  const fetchDashboardData = async () => {
+    try {
+      // 2. The magic "await" keyword
+      const [s, c, d, m] = await Promise.all([
+        fetch(`${API}/api/stats`).then(r => r.json()),
+        fetch(`${API}/api/charts`).then(r => r.json()),
+        fetch(`${API}/api/data/sample`).then(r => r.json()),
+        fetch(`${API}/api/data/survived-by-class-sex`).then(r => r.json()),
+      ]);
+      // 3. This code only runs after the await is 100% finished
+      setStats(s);
+      setCharts(c);
+      setSample(d);
+      setMatrix(m);
+      setLoading(false);
+
+    } catch (error) {
+      // 4. Error handling replaces .catch()
+      console.error("Something went wrong!", error);
+      }
+    };
+    fetchDashboardData();
+  },
+[]);
 
   if (loading) return <Loader />
 
@@ -35,10 +50,10 @@ export default function App() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerLeft}>
-            <span className={styles.tag}>KAGGLE DATASET</span>
+            <span className={styles.tag}>Full Stack Data Analysis Project</span>
             <h1 className={styles.title}>TITANIC<br /><em>SURVIVAL</em></h1>
             <p className={styles.subtitle}>
-             Produced and Developed by Jason Teo
+             Created by Jason Teo
             </p>
           </div>
           <div className={styles.headerStats}>
